@@ -7,8 +7,7 @@ number of new variants in
 a future (test) cohort that is \eqn{t} times as large as the
 training cohort}
 \usage{
-sgt_Delta(counts = NULL, r = NULL, N_r = NULL, m, t = 1,
-  adj = TRUE)
+sgt_Delta(counts = NULL, r = NULL, N_r = NULL, m, t = 1, adj = TRUE)
 }
 \arguments{
 \item{counts}{vector of counts or frequencies of the observed variants.}
@@ -20,7 +19,7 @@ sgt_Delta(counts = NULL, r = NULL, N_r = NULL, m, t = 1,
 \item{m}{training cohort size.}
 
 \item{t}{positive scalar. The proportion of the future (test) cohort size to the
-trianing cohort size.}
+training cohort size.}
 
 \item{adj}{logical. Should the Orlitsky et al. adjustment be used?
 Defaults to \code{TRUE}. Ignored if \code{t < 1}.}
@@ -34,7 +33,9 @@ training cohort
 \details{
 Computes the original Good Toulmin (1956) estimate of \eqn{\Delta(t)} if \code{t <= 1}. If
 \code{t > 1}, the Efron-Thisted estimate (if \code{adj = FALSE}) or the
-Efron-Thisted estimate with Orlitsky et al. (2016) adjustment (if \code{adj = TRUE}) is computed.
+Efron-Thisted estimate with Orlitsky et al. (2016) adjustment (if \code{adj = TRUE}) is computed. Also
+returns an approximate standard error ("se") of the estimate as an attribute, computed using the formula
+provided in Efron-Thisted (1976, equation 5.2).
 }
 \note{
 Either (a) \code{counts}, or (b) \code{r} and
@@ -70,7 +71,7 @@ when a sample is increased. Biometrika, 43(1–2), 45–63.
 https://doi.org/10.1093/biomet/43.1-2.45.
 
 Efron, B., & Thisted, R. (1976). Estimating the Number
-of Unsen Species: How Many Words Did Shakespeare
+of Unseen Species: How Many Words Did Shakespeare
 Know? Biometrika, 63(3), 435–447.
 Retrieved from http://www.jstor.org/stable/2335721.
 

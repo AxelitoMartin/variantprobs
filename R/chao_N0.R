@@ -4,7 +4,9 @@
 #' @inheritParams sgt_Delta
 #'
 #' @details Calculates Chao (1987) estimate of the total number of
-#' unseen variants
+#' unseen variants. Also provides an approximate standard error ("se") of the
+#' estimate as an attribute, computed using the formula provided in Chao (1987).
+#'
 #' \dontrun{
 #' # load tcga data
 #' data("tcga")
@@ -26,7 +28,7 @@
 #'
 #' @export
 chao_N0 <- function(counts = NULL, r = NULL, N_r = NULL,
-                 m) {
+                    m) {
 
   if(any(is.null(r), is.null(N_r))) {
     tmp <- rle(sort(unname(counts)))
@@ -47,9 +49,9 @@ chao_N0 <- function(counts = NULL, r = NULL, N_r = NULL,
                  0)
 
     Sobs <- sum(N_r)
-    N0chao <- A * ifelse(Q2 > 0,
-                         0.5 * A * Q1^2/Q2,
-                         0.5 * A * Q1*(Q1 - 1))
+    N0chao <- ifelse(Q2 > 0,
+                     0.5 * A * Q1^2/Q2,
+                     0.5 * A * Q1*(Q1 - 1))
 
     var_N0chao <- ifelse(Q2 > 0,
                          Q2 * (0.5*A*(Q1/Q2)^2 + A^2*(Q1/Q2)^3 +
